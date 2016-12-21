@@ -2,7 +2,7 @@
   "name": "bridzius.github.io",
   "version": "1.0.0",
   "description": "My own, personal, website",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"No tests here\""
   },
@@ -15,10 +15,17 @@
   "bugs": {
     "url": "https://github.com/bridzius/bridzius.github.io/issues"
   },
+  "babel": {
+    "presets": ["env"]
+  },
   "homepage": "https://github.com/bridzius/bridzius.github.io#readme",
   "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.1.4",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
-    "gulp-sass": "^3.0.0"
+    "gulp-sass": "^3.0.0",
+    "webpack": "^1.14.0"
   }
 }
