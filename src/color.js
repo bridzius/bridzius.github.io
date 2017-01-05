@@ -20,10 +20,8 @@ export class Color {
         }
 
         function rgbToHSL(rgb) {
-            // strip the leading # if it's there
             rgb = rgb.replace(/^\s*#|\s*$/g, '');
 
-            // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
             if (rgb.length == 3) {
                 rgb = rgb.replace(/(.)/g, '$1$1');
             }
