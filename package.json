@@ -4,7 +4,7 @@
   "description": "My own, personal, website",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"No tests here\""
+    "start": "webpack"
   },
   "repository": {
     "type": "git",
@@ -20,18 +20,26 @@
       "env"
     ]
   },
+  "scripts": {
+    "precommit": "webpack",
+    "start": "webpack-dev-server --progress --inline"
+  },
   "homepage": "https://github.com/bridzius/bridzius.github.io#readme",
   "devDependencies": {
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-preset-env": "^1.1.4",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-plugin-import": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^3.0.0",
-    "webpack": "^1.14.0",
-    "css-loader": "^0.26.1",
+    "husky": "^0.12.0",
     "node-sass": "^4.1.1",
     "sass-loader": "^4.1.1",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "webpack": "^1.14.0"
   }
 }

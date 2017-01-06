@@ -1,8 +1,10 @@
-import {Color} from "./color";
-require("../scss/start-page.scss");
-let randomRed = Math.ceil(Math.random() * 255);
-let randomGreen = Math.ceil(Math.random() * 255);
-let randomBlue = Math.ceil(Math.random() * 255);
-let color = new Color(randomRed, randomGreen, randomBlue);
+import Color from './color';
+
+require('../scss/start-page.scss');
+
+const randomRed = Math.ceil(Math.random() * 255);
+const randomGreen = Math.ceil(Math.random() * 255);
+const randomBlue = Math.ceil(Math.random() * 255);
+const color = new Color(randomRed, randomGreen, randomBlue);
 document.body.style.color = color.hex;
-document.body.style.backgroundColor = color.changeHue(Math.random() < 0.5 ? 100 : -100);
+document.body.style.backgroundColor = color.hue(Math.random() < 0.5 ? 100 : -100);
