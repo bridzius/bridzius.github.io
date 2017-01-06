@@ -44,31 +44,41 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _color = __webpack_require__(1);
 
-	__webpack_require__(2);
+	var _color2 = _interopRequireDefault(_color);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	__webpack_require__(3);
+
 	var randomRed = Math.ceil(Math.random() * 255);
 	var randomGreen = Math.ceil(Math.random() * 255);
 	var randomBlue = Math.ceil(Math.random() * 255);
-	var color = new _color.Color(randomRed, randomGreen, randomBlue);
+	var color = new _color2.default(randomRed, randomGreen, randomBlue);
 	document.body.style.color = color.hex;
-	document.body.style.backgroundColor = color.changeHue(Math.random() < 0.5 ? 100 : -100);
+	document.body.style.backgroundColor = color.hue(Math.random() < 0.5 ? 100 : -100);
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _colorModifiers = __webpack_require__(2);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var Color = exports.Color = function Color(red, green, blue) {
+	var Color = function () {
+	  function Color(red, green, blue) {
 	    _classCallCheck(this, Color);
 
 	    this.rgb = [red, green, blue];
@@ -76,129 +86,153 @@
 	    this.green = green;
 	    this.blue = blue;
 	    this.contrast = (this.red + this.green + this.blue) / 3;
-	    this.hex = rgbToHex(this.red, this.green, this.blue);
-	    this.changeHue = changeHue;
+	    this.hex = (0, _colorModifiers.rgbToHex)(this.red, this.green, this.blue);
+	  }
 
-	    function changeHue(degree) {
-	        var hsl = rgbToHSL(this.hex);
-	        hsl.h += degree;
-	        if (hsl.h > 360) {
-	            hsl.h -= 360;
-	        } else if (hsl.h < 0) {
-	            hsl.h += 360;
-	        }
-	        return hslToRGB(hsl);
+	  _createClass(Color, [{
+	    key: 'hue',
+	    value: function hue(changeHueBy) {
+	      return (0, _colorModifiers.changeHue)(this.hex, changeHueBy);
 	    }
+	  }]);
 
-	    function rgbToHSL(rgb) {
-	        rgb = rgb.replace(/^\s*#|\s*$/g, '');
+	  return Color;
+	}();
 
-	        if (rgb.length == 3) {
-	            rgb = rgb.replace(/(.)/g, '$1$1');
-	        }
-
-	        var r = parseInt(rgb.substr(0, 2), 16) / 255,
-	            g = parseInt(rgb.substr(2, 2), 16) / 255,
-	            b = parseInt(rgb.substr(4, 2), 16) / 255,
-	            cMax = Math.max(r, g, b),
-	            cMin = Math.min(r, g, b),
-	            delta = cMax - cMin,
-	            l = (cMax + cMin) / 2,
-	            h = 0,
-	            s = 0;
-
-	        if (delta == 0) {
-	            h = 0;
-	        } else if (cMax == r) {
-	            h = 60 * ((g - b) / delta % 6);
-	        } else if (cMax == g) {
-	            h = 60 * ((b - r) / delta + 2);
-	        } else {
-	            h = 60 * ((r - g) / delta + 4);
-	        }
-
-	        if (delta == 0) {
-	            s = 0;
-	        } else {
-	            s = delta / (1 - Math.abs(2 * l - 1));
-	        }
-
-	        return {
-	            h: h,
-	            s: s,
-	            l: l
-	        };
-	    }
-
-	    // expects an object and returns a string
-	    function hslToRGB(hsl) {
-	        var h = hsl.h,
-	            s = hsl.s,
-	            l = hsl.l,
-	            c = (1 - Math.abs(2 * l - 1)) * s,
-	            x = c * (1 - Math.abs(h / 60 % 2 - 1)),
-	            m = l - c / 2,
-	            r = void 0,
-	            g = void 0,
-	            b = void 0;
-
-	        if (h < 60) {
-	            r = c;
-	            g = x;
-	            b = 0;
-	        } else if (h < 120) {
-	            r = x;
-	            g = c;
-	            b = 0;
-	        } else if (h < 180) {
-	            r = 0;
-	            g = c;
-	            b = x;
-	        } else if (h < 240) {
-	            r = 0;
-	            g = x;
-	            b = c;
-	        } else if (h < 300) {
-	            r = x;
-	            g = 0;
-	            b = c;
-	        } else {
-	            r = c;
-	            g = 0;
-	            b = x;
-	        }
-
-	        r = normalize_rgb_value(r, m);
-	        g = normalize_rgb_value(g, m);
-	        b = normalize_rgb_value(b, m);
-
-	        return rgbToHex(r, g, b);
-	    }
-
-	    function normalize_rgb_value(color, m) {
-	        color = Math.floor((color + m) * 255);
-	        if (color < 0) {
-	            color = 0;
-	        }
-	        return color;
-	    }
-
-	    function rgbToHex(r, g, b) {
-	        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-	    }
-	};
+	exports.default = Color;
 
 /***/ },
 /* 2 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.rgbToHex = rgbToHex;
+	exports.rgbToHSL = rgbToHSL;
+	exports.normalizeRGBValue = normalizeRGBValue;
+	exports.hslToRGB = hslToRGB;
+	exports.changeHue = changeHue;
+	function rgbToHex(r, g, b) {
+	  return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); //eslint-disable-line
+	}
+
+	function rgbToHSL(originrgb) {
+	  var rgb = originrgb.replace(/^\s*#|\s*$/g, '');
+
+	  if (rgb.length === 3) {
+	    rgb = rgb.replace(/(.)/g, '$1$1');
+	  }
+
+	  var r = parseInt(rgb.substr(0, 2), 16) / 255;
+	  var g = parseInt(rgb.substr(2, 2), 16) / 255;
+	  var b = parseInt(rgb.substr(4, 2), 16) / 255;
+	  var cMax = Math.max(r, g, b);
+	  var cMin = Math.min(r, g, b);
+	  var delta = cMax - cMin;
+	  var l = (cMax + cMin) / 2;
+	  var h = 0;
+	  var s = 0;
+
+	  if (delta === 0) {
+	    h = 0;
+	  } else if (cMax === r) {
+	    h = 60 * ((g - b) / delta % 6);
+	  } else if (cMax === g) {
+	    h = 60 * ((b - r) / delta + 2);
+	  } else {
+	    h = 60 * ((r - g) / delta + 4);
+	  }
+
+	  if (delta === 0) {
+	    s = 0;
+	  } else {
+	    s = delta / (1 - Math.abs(2 * l - 1));
+	  }
+
+	  return {
+	    h: h,
+	    s: s,
+	    l: l
+	  };
+	}
+
+	function normalizeRGBValue(color, m) {
+	  var normalizedColor = Math.floor((color + m) * 255);
+	  if (normalizedColor < 0) {
+	    normalizedColor = 0;
+	  }
+	  return normalizedColor;
+	}
+
+	function hslToRGB(hsl) {
+	  var h = hsl.h;
+	  var s = hsl.s;
+	  var l = hsl.l;
+	  var c = (1 - Math.abs(2 * l - 1)) * s;
+	  var x = c * (1 - (Math.abs(h / 60 % 2) - 1));
+	  var m = l - c / 2;
+	  var r = void 0;
+	  var g = void 0;
+	  var b = void 0;
+
+	  if (h < 60) {
+	    r = c;
+	    g = x;
+	    b = 0;
+	  } else if (h < 120) {
+	    r = x;
+	    g = c;
+	    b = 0;
+	  } else if (h < 180) {
+	    r = 0;
+	    g = c;
+	    b = x;
+	  } else if (h < 240) {
+	    r = 0;
+	    g = x;
+	    b = c;
+	  } else if (h < 300) {
+	    r = x;
+	    g = 0;
+	    b = c;
+	  } else {
+	    r = c;
+	    g = 0;
+	    b = x;
+	  }
+
+	  r = normalizeRGBValue(r, m);
+	  g = normalizeRGBValue(g, m);
+	  b = normalizeRGBValue(b, m);
+
+	  return rgbToHex(r, g, b);
+	}
+
+	function changeHue(hex, degree) {
+	  var hsl = rgbToHSL(hex);
+	  hsl.h += degree;
+	  if (hsl.h > 360) {
+	    hsl.h -= 360;
+	  } else if (hsl.h < 0) {
+	    hsl.h += 360;
+	  }
+	  return hslToRGB(hsl);
+	}
+
+/***/ },
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(3);
+	var content = __webpack_require__(4);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(5)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -215,21 +249,21 @@
 	}
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(4)();
+	exports = module.exports = __webpack_require__(5)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body{font-family:Arial;text-size:10px;margin:0}header,main{margin:8px}footer{position:absolute;bottom:0}footer p{padding:0 8px}a{color:white;margin:8px 0}\n", ""]);
+	exports.push([module.id, "body{font-family:Arial;text-size:10px;margin:0;display:flex;flex-direction:column;align-items:center}main{display:flex;flex-direction:row;align-items:center}@media (max-width: 400px){main{flex-direction:column}}aside{padding:0 28px}img{width:152px;height:152px}header,main{margin:8px}footer{position:absolute;bottom:0}footer p{padding:0 8px}a{color:white;margin:8px 0}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	/*
@@ -285,7 +319,7 @@
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

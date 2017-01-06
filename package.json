@@ -21,8 +21,9 @@
     ]
   },
   "scripts": {
-    "precommit": "webpack",
-    "start": "webpack-dev-server --progress --inline"
+    "precommit": "npm run lint",
+    "start": "webpack-dev-server --progress --inline",
+    "lint": "eslint src/"
   },
   "homepage": "https://github.com/bridzius/bridzius.github.io#readme",
   "devDependencies": {
