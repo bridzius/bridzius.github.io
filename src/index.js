@@ -1,4 +1,5 @@
 import {Color} from "./color";
+require("../scss/start-page.scss");
 let randomRed = Math.ceil(Math.random() * 255);
 let randomGreen = Math.ceil(Math.random() * 255);
 let randomBlue = Math.ceil(Math.random() * 255);

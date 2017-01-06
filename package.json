@@ -16,7 +16,9 @@
     "url": "https://github.com/bridzius/bridzius.github.io/issues"
   },
   "babel": {
-    "presets": ["env"]
+    "presets": [
+      "env"
+    ]
   },
   "homepage": "https://github.com/bridzius/bridzius.github.io#readme",
   "devDependencies": {
@@ -26,6 +28,10 @@
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^3.0.0",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "css-loader": "^0.26.1",
+    "node-sass": "^4.1.1",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1"
   }
 }
