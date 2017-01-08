@@ -257,7 +257,7 @@
 
 
 	// module
-	exports.push([module.id, "body{font-family:Arial;text-size:10px;margin:0;display:flex;flex-direction:column;align-items:center}main{display:flex;flex-direction:row;align-items:center}@media (max-width: 400px){main{flex-direction:column}}aside{padding:0 28px}img{width:152px;height:152px}header,main{margin:8px}footer{position:absolute;bottom:0}footer p{padding:0 8px}a{color:white;margin:8px 0}\n", ""]);
+	exports.push([module.id, "body{display:block;font-family:Arial;text-size:10px;margin:0;display:flex;flex-direction:column;align-items:center}main{display:flex;flex-direction:row;align-items:center}@media (max-width: 400px){main{flex-direction:column}}aside{padding:0 28px}img{width:152px;height:152px}header,main{margin:8px}footer{position:absolute;bottom:0}footer p{padding:0 8px}a{color:white;margin:8px 0}\n", ""]);
 
 	// exports
 

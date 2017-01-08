@@ -12,6 +12,7 @@
 $main: 4px;
 $m-spacing: 2*$main;
 body {
+  display: block;
   font-family: Arial;
   text-size: 2.5*$main;
   margin: 0;
