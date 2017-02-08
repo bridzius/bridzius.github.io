@@ -111,9 +111,6 @@
 	  value: true
 	});
 	exports.rgbToHex = rgbToHex;
-	exports.rgbToHSL = rgbToHSL;
-	exports.normalizeRGBValue = normalizeRGBValue;
-	exports.hslToRGB = hslToRGB;
 	exports.changeHue = changeHue;
 	function rgbToHex(r, g, b) {
 	  return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); //eslint-disable-line

@@ -2,7 +2,7 @@ export function rgbToHex(r, g, b) {
   return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`; //eslint-disable-line
 }
 
-export function rgbToHSL(originrgb) {
+function rgbToHSL(originrgb) {
   let rgb = originrgb.replace(/^\s*#|\s*$/g, '');
 
   if (rgb.length === 3) {
@@ -42,7 +42,7 @@ export function rgbToHSL(originrgb) {
   };
 }
 
-export function normalizeRGBValue(color, m) {
+function normalizeRGBValue(color, m) {
   let normalizedColor = Math.floor((color + m) * 255);
   if (normalizedColor < 0) {
     normalizedColor = 0;
@@ -50,7 +50,7 @@ export function normalizeRGBValue(color, m) {
   return normalizedColor;
 }
 
-export function hslToRGB(hsl) {
+function hslToRGB(hsl) {
   const h = hsl.h;
   const s = hsl.s;
   const l = hsl.l;
