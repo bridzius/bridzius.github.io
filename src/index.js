@@ -8,3 +8,7 @@ const randomBlue = Math.ceil(Math.random() * 255);
 const color = new Color(randomRed, randomGreen, randomBlue);
 document.body.style.color = color.hex;
 document.body.style.backgroundColor = color.hue(Math.random() < 0.5 ? 100 : -100);
+window.addEventListener('load', () => {
+  const loadTime = window.performance.timing.domComplete - window.performance.timing.connectEnd;
+  console.log(loadTime);
+});
