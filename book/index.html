@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BOoKr</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>
+var setupTime = getTime();
+
+function getTime() {
+	let currentTime = new Date();
+	let currentHours = currentTime.getHours();
+	let currentMinutes = currentTime.getMinutes();
+	let currentSeconds = currentTime.getSeconds();
+	currentMinutes = currentMinutes < 10 ? "0" + currentMinutes : currentMinutes;
+	currentSeconds = currentSeconds < 10 ? "0" + currentSeconds : currentSeconds;
+	return [currentHours, currentMinutes, currentSeconds];
+}
+
+function drawTime() {
+	let formattedTime = getTime();
+	let currentHours = formattedTime[0];
+	let currentMinutes = formattedTime[1];
+	let currentSeconds = formattedTime[2];
+	return `${currentHours}:${currentMinutes}:${currentSeconds}`;
+}
+
+function book () {
+	document.body.classList = "booked";
+	document.getElementById("status").innerHTML = "Room Busy";
+}
+
+function unbook() {
+	document.body.classList = "";
+	document.getElementById("status").innerHTML = "Room Empty";
+}
+
+function drawClock() {
+	document.getElementById("timer").innerHTML = drawTime();
+	let currentTime = getTime();
+	if (currentTime[0] > setupTime[0] || currentTime[1] >= setupTime[1] + 1 ) {
+		setupTime = getTime();
+		book();
+	}
+}
+
+function bookRoom() {
+	book();
+}
+function removeBooking() {
+	unbook();
+}
+
+setInterval(drawClock, 1000);
+
+		</script>
+		<style>
+body {
+	background-color: green;
+	color: white;
+	transition: background-color 3000ms linear;
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+			.booked {
+				background-color: red;
+			}
+			main {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				justify-content: center;
+			}
+			h2 {
+				text-align: center;
+				flex: 1;
+			}
+			#status{
+				font-size: 5em;
+			}
+			section {
+				box-sizing: border-box;
+				flex: 1 1 auto;
+				flex-direction: column;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 20px;
+				height:100%;
+			}
+			button {
+				color: white;
+				font-family: Tahoma;
+				font-size: 2em;
+			}
+			section > div {
+				flex:1;
+			}
+			section:last-of-type {
+				background-color: rgba(255, 255, 255, .5);
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+		<section>
+			<div>
+				<button onclick="bookRoom()">Book</button><button onclick="removeBooking()">Release</button>
+			</div>
+			<h2 id="timer"></h2>
+		</section><section>
+			<h2 id="status">Room Empty</h2>
+		</section>
+
+		</main>
+	</body>
+</html>
