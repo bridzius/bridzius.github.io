@@ -1,10 +1,9 @@
 module.exports = {
-    "extends": "airbnb-base",
-    "installedESLint": true,
-    "plugins": [
-        "import"
-    ],
+    "extends": "airbnb",
     "env": {
       "browser": true
+    },
+    "rules": {
+      "jsx-a11y/href-no-hash": 0
     }
 };

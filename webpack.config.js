@@ -1,22 +1,28 @@
 var path = require("path");
+var UglifyPlugin = require("uglifyjs-webpack-plugin")
 module.exports = {
     entry: "./src/index.js",
     output: {
-        path: "./dist",
+        path: path.resolve(__dirname, "dist"),
         filename: "bundle.js",
         publicPath: "/dist"
     },
     module: {
-        loaders: [{
+        rules: [{
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: "babel-loader"
+            use: ["babel-loader"]
         }, {
-          test: /\.scss$/,
-          loaders: ["style-loader", "css-loader", "sass-loader"]
+            test: /\.scss$/,
+            use: ["style-loader", "css-loader", {
+                loader: "sass-loader",
+                options: {
+                    outputStyle: "compressed"
+                }
+            }]
         }]
     },
-    sassLoader: {
-      outputStyle: "compressed"
-    }
+    plugins: [
+      new UglifyPlugin
+    ]
 }
