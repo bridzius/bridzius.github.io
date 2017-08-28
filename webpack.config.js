@@ -1,28 +1,51 @@
 var path = require("path");
-var UglifyPlugin = require("uglifyjs-webpack-plugin")
+var webpack = require("webpack");
+var ExtractCSS = require("extract-text-webpack-plugin");
 module.exports = {
-    entry: "./src/index.js",
-    output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "bundle.js",
-        publicPath: "/dist"
-    },
-    module: {
-        rules: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: ["babel-loader"]
+  devtool: "inline-source-map",
+  entry: "./src/index.ts",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    publicPath: "/dist"
+  },
+  module: {
+    rules: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: ["babel-loader"]
+    }, {
+      test: /\.ts$/,
+      exclude: /node_modules/,
+      use: ["ts-loader"]
+    }, {
+      test: /\.scss$/,
+      use: ExtractCSS.extract({
+        fallback: "style-loader",
+        use: [{
+          loader: "typings-for-css-modules-loader",
+          options: {
+            namedexport: true,
+            camelcase: true,
+            modules: true
+          }
         }, {
-            test: /\.scss$/,
-            use: ["style-loader", "css-loader", {
-                loader: "sass-loader",
-                options: {
-                    outputStyle: "compressed"
-                }
-            }]
+          loader: "sass-loader",
+          options: {
+            outputStyle: "compressed"
+          }
         }]
-    },
-    plugins: [
-      new UglifyPlugin
-    ]
+      })
+    }]
+  },
+  resolve: {
+    extensions: ['.js', '.ts']
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      comments: false
+    }),
+    new ExtractCSS("styles.css")
+  ]
 }

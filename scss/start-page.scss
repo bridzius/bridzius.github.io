@@ -13,12 +13,24 @@ $main: 4px;
 $m-spacing: 2*$main;
 body {
   display: block;
-  font-family: Arial;
-  text-size: 2.5*$main;
+  font-family: sans-serif;
+  font-size: 4*$main;
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+header {
+  @include bp(phone) {
+    flex-direction: column;
+  }
+  display: flex;
+  flex-direction: row;
+  padding: $main 0;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 main {
   @include bp(phone) {
@@ -28,12 +40,10 @@ main {
   flex-direction: row;
   align-items: center;
 }
-aside {
-  padding: 0 7*$main;
-}
 img {
   width: 38*$main;
   height: 38*$main;
+  border-radius: 50%;
 }
 header, main {
   margin: $m-spacing;
@@ -46,6 +56,5 @@ footer {
   }
 }
 a {
-  color: white;
   margin: $m-spacing 0;
 }

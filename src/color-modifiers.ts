@@ -1,5 +1,15 @@
-export function rgbToHex(r, g, b) {
+export function rgbToHex(r: number, g: number, b: number) {
   return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`; //eslint-disable-line
+}
+
+export function luminance(r, g, b) {
+  var a = [r, g, b].map(function(v) {
+    v /= 255;
+    return v <= 0.03928
+      ? v / 12.92
+      : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
 }
 
 function rgbToHSL(originrgb) {
@@ -42,21 +52,21 @@ function rgbToHSL(originrgb) {
   };
 }
 
-function normalizeRGBValue(color, m) {
-  let normalizedColor = Math.floor((color + m) * 255);
+function normalizeRGBValue(color: number, m: number) {
+  let normalizedColor: number = Math.floor((color + m) * 255);
   if (normalizedColor < 0) {
     normalizedColor = 0;
   }
   return normalizedColor;
 }
 
-function hslToRGB(hsl) {
-  const h = hsl.h;
-  const s = hsl.s;
-  const l = hsl.l;
-  const c = (1 - Math.abs((2 * l) - 1)) * s;
-  const x = c * (1 - (Math.abs((h / 60) % 2) - 1));
-  const m = l - (c / 2);
+function hslToRGB(hsl): string {
+  const h: number = hsl.h;
+  const s: number = hsl.s;
+  const l: number = hsl.l;
+  const c: number = (1 - Math.abs((2 * l) - 1)) * s;
+  const x: number = c * (1 - (Math.abs((h / 60) % 2) - 1));
+  const m: number = l - (c / 2);
   let r;
   let g;
   let b;
@@ -94,7 +104,7 @@ function hslToRGB(hsl) {
   return rgbToHex(r, g, b);
 }
 
-export function changeHue(hex, degree) {
+export function changeHue(hex: string, degree: number): string {
   const hsl = rgbToHSL(hex);
   hsl.h += degree;
   if (hsl.h > 360) {
