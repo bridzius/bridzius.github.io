@@ -2,5 +2,5 @@
 
 Otherwise known as https://bridzius.github.io
 
-This is a personal website
-Single Page Website in all of its glory.
+- This is a Personal Website.
+- A Single Page Website in all of its glory.
