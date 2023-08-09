@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  	<title>Bridzius.lt</title>
+  	<link>https://bridzius.lt</link>
+  	<description>Jurgis Bridžius - Home Office</description>
+  	<item>
+		<guid>distractions</guid>
+    		<title>Distractions</title>
+    		<link>https://bridzius.lt/#distractions</link>
+    		<description>There is probably no better way tof expressing and preserving thoughts than writing...</description>
+	</item>
+</channel>
+
+</rss> 
